@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vida Fácil</title>
+    <link rel="stylesheet" href="style/style.css"></head>
+<body>
+
+    <aside class="sidebar">
+        <h1>🌷 Vida Fácil</h1>
+
+        <nav>
+            <button class="menu-btn active" data-page="inicio">🏠 Início</button>
+            <button class="menu-btn" data-page="tarefas">📝 Tarefas</button>
+            <button class="menu-btn" data-page="estudos">📚 Estudos</button>
+            <button class="menu-btn" data-page="pomodoro">⏱️ Cronometro</button>
+            <button class="menu-btn" data-page="financas">💰 Finanças</button>
+            <button class="menu-btn" data-page="calendario">📅 Calendário</button>
+        </nav>
+
+        <button id="temaBtn" class="theme-btn">🌙 Tema escuro</button>
+    </aside>
+
+    <main>
+
+        <!-- INÍCIO -->
+        <section id="inicio" class="page active">
+            <header>
+                <div>
+                    <p class="small">Bem-vinda! 💗</p>
+                    <h2>Seu dia de hoje</h2>
+                    <p id="dataAtual"></p>
+                </div>
+            </header>
+
+            <div class="cards">
+                <div class="card">
+                    <span>📝</span>
+                    <p>Tarefas pendentes</p>
+                    <strong id="totalTarefas">0</strong>
+                </div>
+
+                <div class="card">
+                    <span>📚</span>
+                    <p>Horas estudadas</p>
+                    <strong id="horasEstudadas">0h</strong>
+                </div>
+
+                <div class="card">
+                    <span>💰</span>
+                    <p>Saldo</p>
+                    <strong id="saldo">R$ 0,00</strong>
+                </div>
+
+                <div class="card">
+                    <span>🎯</span>
+                    <p>Tarefas concluídas</p>
+                    <strong id="tarefasConcluidas">0</strong>
+                </div>
+            </div>
+
+            <div class="dashboard-grid">
+
+                <div class="panel">
+                    <div class="panel-title">
+                        <h3>📌 Próximas tarefas</h3>
+                        <button onclick="abrirPagina('tarefas')">Ver todas</button>
+                    </div>
+
+                    <div id="tarefasDashboard"></div>
+                </div>
+
+                <div class="panel">
+                    <h3>📊 Resumo</h3>
+
+                    <div class="progress-container">
+                        <div class="progress-info">
+                            <span>Progresso das tarefas</span>
+                            <span id="porcentagemTarefas">0%</span>
+                        </div>
+
+                        <div class="progress">
+                            <div id="barraTarefas"></div>
+                        </div>
+                    </div>
+
+                    <div class="mini-info">
+                        <span>📚 Sessões de estudo</span>
+                        <strong id="sessoesEstudo">0</strong>
+                    </div>
+
+                    <div class="mini-info">
+                        <span>💸 Gastos este mês</span>
+                        <strong id="gastosMes">R$ 0,00</strong>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- TAREFAS -->
+        <section id="tarefas" class="page">
+            <h2>📝 Minhas tarefas</h2>
+            <p class="subtitle">Organize tudo que você precisa fazer.</p>
+
+            <div class="form-box">
+                <input type="text" id="tarefaInput" placeholder="Nome da tarefa">
+                
+                <select id="prioridadeInput">
+                    <option value="baixa">Prioridade baixa</option>
+                    <option value="media">Prioridade média</option>
+                    <option value="alta">Prioridade alta</option>
+                </select>
+
+                <input type="date" id="prazoInput">
+
+                <button onclick="adicionarTarefa()">Adicionar</button>
+            </div>
+
+            <div id="listaTarefas" class="task-list"></div>
+        </section>
+
+
+        <!-- ESTUDOS -->
+        <section id="estudos" class="page">
+            <h2>📚 Estudos</h2>
+            <p class="subtitle">Organize suas matérias e calcule suas notas.</p>
+
+            <div class="form-box">
+                <input type="text" id="materiaInput" placeholder="Matéria">
+                <input type="number" id="notaInput" placeholder="Nota" min="0" max="10" step="0.1">
+                <input type="number" id="pesoInput" placeholder="Peso" min="1">
+                <button onclick="adicionarNota()">Adicionar nota</button>
+            </div>
+
+            <div class="panel">
+                <h3>📊 Minhas notas</h3>
+                <div id="listaNotas"></div>
+
+                <div class="media-box">
+                    <span>Média geral</span>
+                    <strong id="mediaGeral">0,0</strong>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- POMODORO -->
+        <section id="pomodoro" class="page">
+            <h2>⏱️ Cronômetro Pomodoro</h2>
+            <p class="subtitle">Concentre-se por alguns minutos e faça pausas.</p>
+
+            <div class="pomodoro">
+                <div class="timer" id="timer">25:00</div>
+
+                <p id="statusPomodoro">Hora de focar! 📚</p>
+
+                <div class="timer-buttons">
+                    <button onclick="iniciarPomodoro()">▶ Iniciar</button>
+                    <button onclick="pausarPomodoro()">⏸ Pausar</button>
+                    <button onclick="resetarPomodoro()">↻ Reiniciar</button>
+                </div>
+
+                <p>Sessões concluídas: <strong id="contadorSessoes">0</strong></p>
+            </div>
+        </section>
+
+
+        <!-- FINANÇAS -->
+        <section id="financas" class="page">
+            <h2>💰 Finanças</h2>
+            <p class="subtitle">Controle suas entradas e seus gastos.</p>
+
+            <div class="finance-cards">
+                <div class="finance-card">
+                    <span>💵 Entradas</span>
+                    <strong id="entradas">R$ 0,00</strong>
+                </div>
+
+                <div class="finance-card">
+                    <span>💸 Gastos</span>
+                    <strong id="gastos">R$ 0,00</strong>
+                </div>
+
+                <div class="finance-card">
+                    <span>💰 Saldo</span>
+                    <strong id="saldoFinanceiro">R$ 0,00</strong>
+                </div>
+            </div>
+
+            <div class="form-box">
+                <input type="text" id="descricaoFinanceira" placeholder="Descrição">
+                <input type="number" id="valorFinanceiro" placeholder="Valor" step="0.01">
+
+                <select id="tipoFinanceiro">
+                    <option value="entrada">Entrada</option>
+                    <option value="saida">Gasto</option>
+                </select>
+
+                <button onclick="adicionarMovimentacao()">Adicionar</button>
+            </div>
+
+            <div class="panel">
+                <h3>📋 Movimentações</h3>
+                <div id="listaFinanceira"></div>
+            </div>
+        </section>
+
+
+        <!-- CALENDÁRIO -->
+        <section id="calendario" class="page">
+            <h2>📅 Calendário</h2>
+            <p class="subtitle">Veja seus compromissos e prazos.</p>
+
+            <div class="calendar-box">
+                <input type="date" id="dataCalendario">
+                <input type="text" id="eventoCalendario" placeholder="Evento ou compromisso">
+                <button onclick="adicionarEvento()">Adicionar</button>
+            </div>
+
+            <div id="listaEventos"></div>
+        </section>
+
+    </main>
+
+    <script src="script/script.js"></script></body>
+</html>
